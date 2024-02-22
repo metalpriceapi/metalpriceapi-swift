@@ -9,7 +9,7 @@ public class MetalpriceAPIService {
     private let session: URLSession
     private let baseUrl: String
     private (set) var apiKey: String?
-    
+
     // MARK: - Constructors
     public init(apiKey key: String) {
         if key.isEmpty {
@@ -19,7 +19,7 @@ public class MetalpriceAPIService {
         baseUrl = "https://api.metalpriceapi.com/v1"
         apiKey = key
     }
-    
+
     // MARK: - Public methods (Closure based)
 
     public func fetchSymbols(completion: @escaping (SymbolsResult?) -> Void) {
@@ -29,11 +29,11 @@ public class MetalpriceAPIService {
         guard let url = createUrl(endpoint: "/symbols", urlQueryItems: urlQueryitems) else { return }
         let request = createUrlRequest(url: url, httpMethodType: .GET)
         let task = createRequestAndDecodeUrlSessionDataTask(urlRequest: request, completion: completion)
-        
+
         task.resume()
         session.finishTasksAndInvalidate()
     }
-    
+
     public func fetchLive(base: String? = nil, currencies: [String]? = nil, completion: @escaping (LiveResult?) -> Void) {
         let urlQueryitems = createQueryItems(items: [
             "api_key": apiKey,
@@ -43,11 +43,11 @@ public class MetalpriceAPIService {
         guard let url = createUrl(endpoint: "/latest", urlQueryItems: urlQueryitems) else { return }
         let request = createUrlRequest(url: url, httpMethodType: .GET)
         let task = createRequestAndDecodeUrlSessionDataTask(urlRequest: request, completion: completion)
-        
+
         task.resume()
         session.finishTasksAndInvalidate()
     }
-    
+
     public func fetchHistorical(date: String, base: String? = nil, currencies: [String]? = nil, completion: @escaping (HistoricalResult?) -> Void) {
         let urlQueryitems = createQueryItems(items: [
             "api_key": apiKey,
@@ -57,11 +57,11 @@ public class MetalpriceAPIService {
         guard let url = createUrl(endpoint: "/\(date)", urlQueryItems: urlQueryitems) else { return }
         let request = createUrlRequest(url: url, httpMethodType: .GET)
         let task = createRequestAndDecodeUrlSessionDataTask(urlRequest: request, completion: completion)
-        
+
         task.resume()
         session.finishTasksAndInvalidate()
     }
-    
+
     public func convert(fromCurrency: String? = nil, toCurrency: String, amount: Double, date: String? = nil, completion: @escaping (ConvertResult?) -> Void) {
         let urlQueryitems = createQueryItems(items: [
             "api_key": apiKey,
@@ -73,11 +73,11 @@ public class MetalpriceAPIService {
         guard let url = createUrl(endpoint: "/convert", urlQueryItems: urlQueryitems) else { return }
         let request = createUrlRequest(url: url, httpMethodType: .GET)
         let task = createRequestAndDecodeUrlSessionDataTask(urlRequest: request, completion: completion)
-        
+
         task.resume()
         session.finishTasksAndInvalidate()
     }
-    
+
     public func timeframe(startDate: String, endDate: String, base: String? = nil, currencies: [String]? = nil, completion: @escaping (TimeframeResult?) -> Void) {
         let urlQueryitems = createQueryItems(items: [
             "api_key": apiKey,
@@ -89,7 +89,7 @@ public class MetalpriceAPIService {
         guard let url = createUrl(endpoint: "/timeframe", urlQueryItems: urlQueryitems) else { return }
         let request = createUrlRequest(url: url, httpMethodType: .GET)
         let task = createRequestAndDecodeUrlSessionDataTask(urlRequest: request, completion: completion)
-        
+
         task.resume()
         session.finishTasksAndInvalidate()
     }
@@ -105,13 +105,27 @@ public class MetalpriceAPIService {
         guard let url = createUrl(endpoint: "/change", urlQueryItems: urlQueryitems) else { return }
         let request = createUrlRequest(url: url, httpMethodType: .GET)
         let task = createRequestAndDecodeUrlSessionDataTask(urlRequest: request, completion: completion)
-        
+
+        task.resume()
+        session.finishTasksAndInvalidate()
+    }
+
+    public func carat(base: String? = nil, date: String? = nil, completion: @escaping (CaratResult?) -> Void) {
+        let urlQueryitems = createQueryItems(items: [
+            "api_key": apiKey,
+            "base": base,
+            "date": date
+        ])
+        guard let url = createUrl(endpoint: "/carat", urlQueryItems: urlQueryitems) else { return }
+        let request = createUrlRequest(url: url, httpMethodType: .GET)
+        let task = createRequestAndDecodeUrlSessionDataTask(urlRequest: request, completion: completion)
+
         task.resume()
         session.finishTasksAndInvalidate()
     }
 
     // MARK: - Private methods
-    
+
     private func createQueryItems(items: [String: String?]) -> [URLQueryItem] {
         var output: [URLQueryItem] = []
         items.forEach { item in
@@ -121,20 +135,20 @@ public class MetalpriceAPIService {
         }
         return output
     }
-    
+
     private func createUrl(endpoint: String, urlQueryItems: [URLQueryItem]?) -> URL? {
         var components = URLComponents(string: baseUrl)
         components?.path.append(endpoint)
         components?.queryItems = urlQueryItems
         return components?.url
     }
-    
+
     private func createUrlRequest(url: URL, httpMethodType: HttpMethodType) -> URLRequest {
         var urlRequest = URLRequest(url: url)
         urlRequest.httpMethod = httpMethodType.rawValue
         return urlRequest
     }
-    
+
     private func createRequestAndDecodeUrlSessionDataTask<T: Decodable>(urlRequest: URLRequest, completion closure: @escaping (T?) -> Void) -> URLSessionDataTask {
         return session.dataTask(with: urlRequest) { (data: Data?, response: URLResponse?, error: Error?) -> Void in
             if (error == nil) {
@@ -143,7 +157,7 @@ public class MetalpriceAPIService {
                     closure(nil)
                     return
                 }
-                
+
                 let decoder = JSONDecoder()
                 do {
                     let data = try decoder.decode(T.self, from: data)
@@ -162,5 +176,5 @@ public class MetalpriceAPIService {
             }
         }
     }
-    
+
 }

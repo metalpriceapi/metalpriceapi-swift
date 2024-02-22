@@ -64,7 +64,7 @@ client.fetchLive(base: "USD", currencies: ["XAU", "XAG", "XPD", "XPT"], completi
 - `currencies` <[List]<[string]>> Optional. Pass in an list of currencies to return values for.
 
 ```swift
-clientfetchHistorical(date: "2021-04-05", base: "USD", currencies: ["XAU", "XAG", "XPD", "XPT"], completion: { result in
+clientfetchHistorical(date: "2024-02-05", base: "USD", currencies: ["XAU", "XAG", "XPD", "XPT"], completion: { result in
   // do something
 }
 ```
@@ -80,7 +80,7 @@ clientfetchHistorical(date: "2021-04-05", base: "USD", currencies: ["XAU", "XAG"
 - `date` <[string]> Optional. Specify date to use historical midpoint value for conversion with format `YYYY-MM-DD`. Otherwise, it will use live exchange rate date if value not passed in.
 
 ```swift
-client.convert(fromCurrency: "USD", toCurrency: "EUR", amount: 100.0, date: "2021-04-05", completion: { result in
+client.convert(fromCurrency: "USD", toCurrency: "EUR", amount: 100.0, date: "2024-02-05", completion: { result in
   // do something
 }
 ```
@@ -96,7 +96,7 @@ client.convert(fromCurrency: "USD", toCurrency: "EUR", amount: 100.0, date: "202
 - `currencies` <[List]<[string]>> Optional. Pass in an list of currencies to return values for.
 
 ```swift
-client.timeframe(startDate: "2021-04-05", endDate: "2021-04-06", base: "USD", currencies: ["XAU", "XAG", "XPD", "XPT"], completion: { result in
+client.timeframe(startDate: "2024-02-05", endDate: "2024-02-06", base: "USD", currencies: ["XAU", "XAG", "XPD", "XPT"], completion: { result in
   // do something
 }
 ```
@@ -112,12 +112,26 @@ client.timeframe(startDate: "2021-04-05", endDate: "2021-04-06", base: "USD", cu
 - `currencies` <[List]<[string]>> Optional. Pass in an list of currencies to return values for.
 
 ```swift
-client.change(startDate: "2021-04-05", endDate: "2021-04-06", base: "USD", currencies: ["XAU", "XAG", "XPD", "XPT"], completion: { result in
+client.change(startDate: "2024-02-05", endDate: "2024-02-06", base: "USD", currencies: ["XAU", "XAG", "XPD", "XPT"], completion: { result in
   // do something
 }
 ```
 
 [Link](https://metalpriceapi.com/documentation#api_change)
+
+---
+#### carat(base, date)
+
+- `base` <[string]> Optional. Pass in a base currency, defaults to USD.
+- `date` <[string]> Optional. Specify date to get Carat for specific date using format `YYYY-MM-DD`. If not specified, uses live rates.
+
+```swift
+client.carat(base: "USD", date: "2024-02-05", completion: { result in
+  // do something
+}
+```
+
+[Link](https://metalpriceapi.com/documentation#api_carat)
 
 ---
 **[Official documentation](https://metalpriceapi.com/documentation)**
