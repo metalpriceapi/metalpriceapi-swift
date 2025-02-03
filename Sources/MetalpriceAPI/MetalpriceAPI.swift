@@ -120,7 +120,7 @@ public class MetalpriceAPIService {
             "currency": currency,
             "date": date,
             "unit": unit,
-            "dateType": dateType
+            "date_type": dateType
         ])
         guard let url = createUrl(endpoint: "/ohlc", urlQueryItems: urlQueryitems) else { return }
         let request = createUrlRequest(url: url, httpMethodType: .GET)

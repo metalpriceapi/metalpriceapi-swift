@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
   s.name             = 'MetalpriceAPI'
-  s.version          = '1.1.1'
+  s.version          = '1.1.2'
   s.summary          = 'Official Swift wrapper for metalpriceapi.com'
   s.homepage         = 'https://github.com/metalpriceapi/metalpriceapi-swift'
   s.license          = { :type => 'MIT', :file => 'LICENSE.md' }
