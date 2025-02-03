@@ -37,7 +37,7 @@ let client = MetalpriceAPIService(apiKey: apiKey)
 ```swift
 client.fetchSymbols(completion: { result in
   // do something
-}
+})
 ```
 
 [Link](https://metalpriceapi.com/documentation#api_symbol)
@@ -51,7 +51,7 @@ client.fetchSymbols(completion: { result in
 ```swift
 client.fetchLive(base: "USD", currencies: ["XAU", "XAG", "XPD", "XPT"], completion: { result in
   // do something
-}
+})
 ```
 
 [Link](https://metalpriceapi.com/documentation#api_realtime)
@@ -66,10 +66,25 @@ client.fetchLive(base: "USD", currencies: ["XAU", "XAG", "XPD", "XPT"], completi
 ```swift
 clientfetchHistorical(date: "2024-02-05", base: "USD", currencies: ["XAU", "XAG", "XPD", "XPT"], completion: { result in
   // do something
-}
+})
 ```
 
 [Link](https://metalpriceapi.com/documentation#api_historical)
+
+---
+#### fetchOHLC(base, currency, date, unit, dateType)
+
+- `base` <[string]> Optional. Pass in a base currency, defaults to USD.
+- `currency` <[string]> Required. Specify currency you would like to get OHLC for.
+- `date` <[string]> Required. Specify date to get OHLC for specific date using format `YYYY-MM-DD`.
+- `unit` <[string]> Optional. Pass in a unit, defaults to troy_oz.
+- `dateType` <[string]> Optional. Pass in a date type, overrides date parameter if passed in.
+
+```swift
+client.fetchOHLC(base: "USD", currency: "XAU", date: "2024-02-05", unit: "troy_oz", dateType: nil, completion: { result in
+  // do something
+})
+```
 
 ---
 #### convert(from_currency, to_currency, amount, date)
@@ -82,7 +97,7 @@ clientfetchHistorical(date: "2024-02-05", base: "USD", currencies: ["XAU", "XAG"
 ```swift
 client.convert(fromCurrency: "USD", toCurrency: "EUR", amount: 100.0, date: "2024-02-05", completion: { result in
   // do something
-}
+})
 ```
 
 [Link](https://metalpriceapi.com/documentation#api_convert)
@@ -98,7 +113,7 @@ client.convert(fromCurrency: "USD", toCurrency: "EUR", amount: 100.0, date: "202
 ```swift
 client.timeframe(startDate: "2024-02-05", endDate: "2024-02-06", base: "USD", currencies: ["XAU", "XAG", "XPD", "XPT"], completion: { result in
   // do something
-}
+})
 ```
 
 [Link](https://metalpriceapi.com/documentation#api_timeframe)
@@ -114,7 +129,7 @@ client.timeframe(startDate: "2024-02-05", endDate: "2024-02-06", base: "USD", cu
 ```swift
 client.change(startDate: "2024-02-05", endDate: "2024-02-06", base: "USD", currencies: ["XAU", "XAG", "XPD", "XPT"], completion: { result in
   // do something
-}
+})
 ```
 
 [Link](https://metalpriceapi.com/documentation#api_change)
@@ -128,11 +143,20 @@ client.change(startDate: "2024-02-05", endDate: "2024-02-06", base: "USD", curre
 ```swift
 client.carat(base: "USD", date: "2024-02-05", completion: { result in
   // do something
-}
+})
 ```
 
 [Link](https://metalpriceapi.com/documentation#api_carat)
 
+---
+#### usage()
+
+- `usage` <[string]> Required. Specify the usage you would like to get usage for.
+
+```swift
+client.usage(completion: { result in
+  // do something
+})
 ---
 **[Official documentation](https://metalpriceapi.com/documentation)**
 
